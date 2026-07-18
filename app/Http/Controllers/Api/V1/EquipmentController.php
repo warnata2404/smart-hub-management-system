@@ -17,9 +17,23 @@ class EquipmentController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
+        $search = request('search');
+
         $equipments = Equipment::query()
+            ->when(
+                $search,
+                function ($query, $search) {
+                    $query->where(function ($query) use ($search) {
+                        $query->where('code', 'like', "%{$search}%")
+                            ->orWhere('name', 'like', "%{$search}%")
+                            ->orWhere('condition', 'like', "%{$search}%")
+                            ->orWhere('status', 'like', "%{$search}%");
+                    });
+                }
+            )
             ->latest()
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         return EquipmentResource::collection($equipments);
     }
