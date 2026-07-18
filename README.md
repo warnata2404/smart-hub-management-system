@@ -1,58 +1,216 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Smart Hub Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Deskripsi
 
-## About Laravel
+Smart Hub Management System adalah RESTful API yang dikembangkan menggunakan Laravel 13 untuk mengelola proses peminjaman peralatan (equipment borrowing management). Aplikasi ini menyediakan fitur autentikasi pengguna menggunakan Laravel Sanctum serta pengelolaan data peralatan, jadwal peminjaman, peminjaman, detail peminjaman, dan check-in.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Fitur
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Autentikasi pengguna (Register, Login, Logout, Current User)
+- Manajemen Equipment
+- Manajemen Borrowing Schedule
+- Manajemen Booking
+- Manajemen Booking Item
+- Manajemen Check-In
+- Validasi Request menggunakan Form Request
+- REST API menggunakan API Resource
+- Authentication menggunakan Laravel Sanctum
+- PostgreSQL Database
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Teknologi
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Laravel 13
+- PHP 8.3
+- PostgreSQL
+- Laravel Sanctum
+- Composer
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## Persyaratan Sistem
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- PHP 8.3 atau lebih baru
+- Composer 2.x
+- PostgreSQL
+- Git
+
+---
+
+## Instalasi
+
+### 1. Clone Repository
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <repository-url>
+cd smart-hub-management-system
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Install Dependency
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Copy File Environment
 
-## Code of Conduct
+```bash
+cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+atau pada Windows:
 
-## Security Vulnerabilities
+```bash
+copy .env.example .env
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4. Konfigurasi Database
 
-## License
+Sesuaikan konfigurasi database PostgreSQL pada file `.env`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Contoh:
+
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=smart_hub_management_system
+DB_USERNAME=postgres
+DB_PASSWORD=your_password
+```
+
+### 5. Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+### 6. Jalankan Migration
+
+```bash
+php artisan migrate
+```
+
+### 7. Buat Storage Link
+
+```bash
+php artisan storage:link
+```
+
+### 8. Jalankan Server
+
+```bash
+php artisan serve
+```
+
+Aplikasi dapat diakses melalui:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+## API Endpoint
+
+### Authentication
+
+| Method | Endpoint           |
+| ------ | ------------------ |
+| POST   | `/api/v1/register` |
+| POST   | `/api/v1/login`    |
+| POST   | `/api/v1/logout`   |
+| GET    | `/api/v1/user`     |
+
+### Equipment
+
+| Method | Endpoint                  |
+| ------ | ------------------------- |
+| GET    | `/api/v1/equipments`      |
+| POST   | `/api/v1/equipments`      |
+| GET    | `/api/v1/equipments/{id}` |
+| PUT    | `/api/v1/equipments/{id}` |
+| DELETE | `/api/v1/equipments/{id}` |
+
+### Borrowing Schedule
+
+| Method | Endpoint                           |
+| ------ | ---------------------------------- |
+| GET    | `/api/v1/borrowing-schedules`      |
+| POST   | `/api/v1/borrowing-schedules`      |
+| GET    | `/api/v1/borrowing-schedules/{id}` |
+| PUT    | `/api/v1/borrowing-schedules/{id}` |
+| DELETE | `/api/v1/borrowing-schedules/{id}` |
+
+### Booking
+
+| Method | Endpoint                |
+| ------ | ----------------------- |
+| GET    | `/api/v1/bookings`      |
+| POST   | `/api/v1/bookings`      |
+| GET    | `/api/v1/bookings/{id}` |
+| PUT    | `/api/v1/bookings/{id}` |
+| DELETE | `/api/v1/bookings/{id}` |
+
+### Booking Item
+
+| Method | Endpoint                     |
+| ------ | ---------------------------- |
+| GET    | `/api/v1/booking-items`      |
+| POST   | `/api/v1/booking-items`      |
+| GET    | `/api/v1/booking-items/{id}` |
+| PUT    | `/api/v1/booking-items/{id}` |
+| DELETE | `/api/v1/booking-items/{id}` |
+
+### Check-In
+
+| Method | Endpoint                 |
+| ------ | ------------------------ |
+| GET    | `/api/v1/check-ins`      |
+| POST   | `/api/v1/check-ins`      |
+| GET    | `/api/v1/check-ins/{id}` |
+| PUT    | `/api/v1/check-ins/{id}` |
+| DELETE | `/api/v1/check-ins/{id}` |
+
+---
+
+## Pengujian
+
+Backend telah melalui pengujian berikut:
+
+- Pengujian Model menggunakan Laravel Tinker
+- Pengujian Relationship Model
+- Pengujian Foreign Key
+- Pengujian Eager Loading
+- Pengujian Authentication API
+- Pengujian Equipment API
+- Pengujian Validasi Request
+- Pengujian Middleware Laravel Sanctum
+
+Seluruh pengujian berhasil dilalui tanpa error.
+
+---
+
+## Struktur Project
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   ├── Requests/
+│   └── Resources/
+├── Models/
+database/
+routes/
+public/
+storage/
+```
+
+---
+
+## Lisensi
+
+Project ini dikembangkan sebagai tugas mata kuliah dan digunakan untuk keperluan akademik.

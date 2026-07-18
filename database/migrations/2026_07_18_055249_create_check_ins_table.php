@@ -20,6 +20,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->foreignId('booking_item_id')
+                ->unique()
                 ->constrained('booking_items')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
@@ -44,7 +45,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index('booking_id');
-            $table->index('booking_item_id');
             $table->index('checked_in_by');
             $table->index('checked_in_at');
         });
